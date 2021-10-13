@@ -1,7 +1,11 @@
-from flask import Flask, render_template
+from flask import Flask
 
-app = Flask(__name__)
 
-@app.route("/")
-def home():
-    return render_template("home.html")
+def create_app(config=None):
+    app = Flask(__name__, instance_relative_config=True)
+
+    from meliarena.home import bp as home_bp
+
+    app.register_blueprint(home_bp, url_prefix="/")
+
+    return app
