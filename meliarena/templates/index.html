@@ -1,1 +1,150 @@
-<p>Hello, World!</p>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;700;900&display=swap" rel="stylesheet">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-uWxY/CJNBR+1zjPWmfnSnVxwRheevXITnMqoEIeG1LJrdI0GlVs/9cVSyPYXdcSF" crossorigin="anonymous">
+
+    <!-- Vendors -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.9.3/tiny-slider.css">
+    <!--[if (lt IE 9)]><script src="https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.9.3/min/tiny-slider.helper.ie8.js"></script><![endif]-->
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.9.3/tiny-slider.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.9.2/min/tiny-slider.js"></script>
+
+    <!-- Our styles -->
+    <link href="static/dist/css/main.css" rel="stylesheet">
+</head>
+
+<body>
+    <header id="header">
+        <div class="wrapper">
+            <div class="logo">
+                <img src="static/images/meli-logo.png" alt="">
+            </div>
+
+
+            <div class="search">
+                <div class="search--form">
+                    <form action="" id="search">
+                        <input type="text" name="q" placeholder="Procure aqui por itens....">
+
+                        <button id="clear-results" type="button">
+                            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M14 1.41L12.59 0L7 5.59L1.41 0L0 1.41L5.59 7L0 12.59L1.41 14L7 8.41L12.59 14L14 12.59L8.41 7L14 1.41Z"
+                                    fill="#666666" />
+                            </svg>
+                        </button>
+
+                        <button type="submit" id="search-button">
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M11.4351 10.0629H10.7124L10.4563 9.81589C11.3528 8.77301 11.8925 7.4191 11.8925 5.94625C11.8925 2.66209 9.23042 0 5.94625 0C2.66209 0 0 2.66209 0 5.94625C0 9.23042 2.66209 11.8925 5.94625 11.8925C7.4191 11.8925 8.77301 11.3528 9.81589 10.4563L10.0629 10.7124V11.4351L14.6369 16L16 14.6369L11.4351 10.0629V10.0629ZM5.94625 10.0629C3.66838 10.0629 1.82962 8.22413 1.82962 5.94625C1.82962 3.66838 3.66838 1.82962 5.94625 1.82962C8.22413 1.82962 10.0629 3.66838 10.0629 5.94625C10.0629 8.22413 8.22413 10.0629 5.94625 10.0629Z"
+                                    fill="#666666" />
+                            </svg>
+                        </button>
+                    </form>
+                </div>
+                <div class="search--results">
+                    <button id="next-slide">
+                        <svg width="24" height="40" viewBox="0 0 24 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M-3.12603e-07 36.4242L3.6401 40L24 20L3.6401 1.77992e-06L-3.18431e-06 3.57576L16.7198 20L-3.12603e-07 36.4242Z" fill="#3483FA"/>
+                        </svg>   
+                    </button>
+
+                    <button id="prev-slide">
+                        <svg width="24" height="40" viewBox="0 0 24 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M24 3.57576L20.3599 0L0 20L20.3599 40L24 36.4242L7.28021 20L24 3.57576Z" fill="#3483FA"/>
+                        </svg> 
+                    </button>
+
+                    <div class="search--results-items">
+                        
+                    </div>
+                </div>
+
+                <button type="button" class="btn btn-primary compare-button" data-toggle="button" aria-pressed="false" autocomplete="off" id="add-item-button">
+                    Adicionar itens
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="wrapper" id="content">
+        <section class="comparation">
+            <div class="comparation--show-case">
+                <div class="breafing">
+                    <h4>Selecione os itens que você deseja comparar</h4>
+                    <button type="button" class="btn btn-primary compare-button" data-toggle="button" aria-pressed="false" autocomplete="off" id="compare-button">
+                        Comparar itens
+                    </button>
+                </div>
+
+                <div class="products">
+                    <div class="products--slot-a is-skeleton" data-empty="true">
+                        <div class="skeleton">
+                            Adicione um produto
+                        </div>
+
+                        <button id="evaluate-star">
+                            <svg width="20" height="19" viewBox="0 0 20 19" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M10 15.27L16.18 19L14.54 11.97L20 7.24L12.81 6.63L10 0L7.19 6.63L0 7.24L5.46 11.97L3.82 19L10 15.27Z"
+                                    fill="black" />
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="products--slot-b is-skeleton" data-empty="true">
+                        <div class="skeleton">
+                            Adicione um produto
+                        </div>
+
+                        <button id="evaluate-star">
+                            <!-- Empty star -->
+                            <svg width="20" height="19" viewBox="0 0 20 19" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M20 7.24L12.81 6.62L10 0L7.19 6.63L0 7.24L5.46 11.97L3.82 19L10 15.27L16.18 19L14.55 11.97L20 7.24ZM10 13.4L6.24 15.67L7.24 11.39L3.92 8.51L8.3 8.13L10 4.1L11.71 8.14L16.09 8.52L12.77 11.4L13.77 15.68L10 13.4Z"
+                                    fill="black" />
+                            </svg>
+                            <!-- Filled star -->
+                            <!-- <svg width="20" height="19" viewBox="0 0 20 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M10 15.27L16.18 19L14.54 11.97L20 7.24L12.81 6.63L10 0L7.19 6.63L0 7.24L5.46 11.97L3.82 19L10 15.27Z" fill="black"/>
+                            </svg> -->
+                        </button>
+                    </div>
+                </div>
+
+
+            </div>
+
+            <div class="comparation--specs"></div>
+        </section>
+    </main>
+
+    <div class="loader hide">
+        <div class="andes-spinner andes-spinner--fullscreen"><div class="andes-spinner__container andes-spinner__container--large"><div class="andes-spinner__icon andes-spinner__icon--large"><div class="andes-spinner__icon-right"><div class="andes-spinner__icon-border"></div></div><div class="andes-spinner__icon-left"><div class="andes-spinner__icon-border"></div></div></div></div><div class="andes-spinner__mask"></div></div>
+    </div>
+
+    <!-- Our scripts -->
+    <!-- Interface handling -->
+    <script src="static/dist/interface.js"></script>
+    <script src="static/main.js"></script>
+</body>
+
+</html>
