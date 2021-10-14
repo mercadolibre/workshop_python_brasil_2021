@@ -63,15 +63,16 @@ const cardClickCallback = function(ev) {
     const productId = card.getAttribute('data-product-id')
     interface.toggleOnLoader()
 
-    Promise.all([fetch(`${API_URL + ITEMS_PREFIX}/${productId}/${REVIEWS_ENDPOINT}`), fetch(`${API_URL + ITEMS_PREFIX}/${productId}/${QUESTIONS_ENDPOINT}`)])
-        .then(([reviewsStream, questionsStream])  => Promise.all([reviewsStream.json(), questionsStream.json()]))
-        .then(([{reviews, rating_levels, rating_average}, questions]) => {
-            if(!reviews.length && !questions.length ) {
+    Promise.all([fetch(`${API_URL + ITEMS_PREFIX}/${productId}/${REVIEWS_ENDPOINT}`)])
+        .then(([reviewsStream])  => Promise.all([reviewsStream.json()]))
+        .then(([{reviews, rating_levels, rating_average}]) => {
+            if(!reviews.length) {
                 alert("Esse produto ainda não possui avaliações ou perguntas")
+                interface.elements.modal.classList.remove('show')
                 return
             }
 
-            interface.buildModalContent({baseElement: interface.elements.modal, reviews, rating_levels, questions, rating_average})
+            interface.buildModalContent({baseElement: interface.elements.modal, reviews, rating_levels, rating_average, questions: []})
             window.scrollTo(0, 0);
         })
         .finally(() => interface.toggleOffLoader())
