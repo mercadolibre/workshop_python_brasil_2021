@@ -7,6 +7,7 @@ from meliarena.models import Item
 BASE_API_URL = "https://api.mercadolibre.com"
 ITEMS_SEARCH_API_URL = f"{BASE_API_URL}/sites/MLB/search"
 ITEMS_API_URL = f"{BASE_API_URL}/items"
+ITEMS_REVIEWS_API_URL = f"{BASE_API_URL}/reviews/item"
 
 
 bp = Blueprint("api", __name__)
@@ -56,3 +57,21 @@ def items():
     item.save()
 
     return jsonify(item.to_dict())
+
+@bp.route("/items/<item_id>/reviews", methods=["GET"])
+def api_items_reviews(item_id):
+    result = {"reviews": [], "rating_average": 0, "rating_levels": []}
+
+    response = requests.get(f"{ITEMS_REVIEWS_API_URL}/{item_id}")
+
+    result["reviews"] = [
+        {"title": r.get("title"), "content": r.get("content"), "rate": r.get("rate")}
+        for r in response.json().get("reviews", [])
+        if r.get("status") == "published"
+    ]
+
+    if result.get("reviews"):
+        result["rating_average"] = response.json().get("rating_average")
+        result["rating_levels"] = response.json().get("rating_levels")
+
+    return jsonify(result)
