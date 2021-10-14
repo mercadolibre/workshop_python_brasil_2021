@@ -3,27 +3,23 @@ def is_comparable(items):
 
     return len(categories_ids) == 1
 
+
 def filter_comparable_attributes(items):
-    first_item = items[0]
-    second_item = items[1]
+    item_reference = items[0]
 
-    first_item_attrs_ids = [attr.get("id") for attr in first_item.get("attributes")]
+    item_reference_attrs_ids = [attr.get("id") for attr in item_reference.get("attributes")]
+    common_attrs_ids = set()
+    for item in items[1:]:
+        current_item_attrs_ids = [attr.get("id") for attr in item.get("attributes")]
+        common_attrs_ids = set.intersection(
+            set(item_reference_attrs_ids), set(current_item_attrs_ids)
+        )
 
-    second_item_attrs_ids = [attr.get("id") for attr in second_item.get("attributes")]
-
-    common_attrs_ids = set.intersection(
-        set(first_item_attrs_ids), set(second_item_attrs_ids)
-    )
-
-    first_item["attributes"] = [
-        attr
-        for attr in first_item.get("attributes")
-        if attr.get("id") in common_attrs_ids
-    ]
-    second_item["attributes"] = [
-        attr
-        for attr in second_item.get("attributes")
-        if attr.get("id") in common_attrs_ids
-    ]
+    for item in items:
+        item["attributes"] = [
+            attr
+            for attr in item.get("attributes")
+            if attr.get("id") in common_attrs_ids
+        ]
 
     return items
