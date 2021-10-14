@@ -13,7 +13,6 @@ ITEMS_QUESTIONS_API_URL = f"{BASE_API_URL}/questions/search"
 
 bp = Blueprint("api", __name__)
 
-
 @bp.route("/items/search/")
 def items_search():
     params = {"q": request.args.get("q")}
@@ -22,7 +21,6 @@ def items_search():
     results = response.json().get("results", [])
 
     return jsonify(results)
-
 
 @bp.route("/items/compare/")
 def items_compare():
@@ -38,32 +36,28 @@ def items_compare():
     if is_comparable(items):
         items = filter_comparable_attributes(items)
     else:
-        abort(
-            Response("Non comparable items!", status=400, mimetype="application/json")
-        )
+        abort(Response("Non comparable items!", status=400, mimetype='application/json'))
 
     return jsonify(items)
-
 
 @bp.route("/items/", methods=["POST"])
 def items():
     data = request.json
-
     if data.get("id", None) is None:
-        abort(Response("Item id is required!", status=400, mimetype="application/json"))
+        abort(Response("Item id is required!", status=400, mimetype='application/json'))
 
     item = Item.query.filter_by(id=data.get("id")).first()
 
     if item is None:
-        item = Item()
-        item.id = data.get("id")
-        item.title = data.get("title")
+        id = data.get("id")
+        title = data.get("title")
 
-    item.is_favourite = data.get("is_favourite").lower() == "true"
+        item = Item(id, title)
+        
+    item.is_favourite = data.get("is_favourite")
     item.save()
 
     return jsonify(item.to_dict())
-
 
 @bp.route("/items/<item_id>/reviews", methods=["GET"])
 def api_items_reviews(item_id):
@@ -82,7 +76,6 @@ def api_items_reviews(item_id):
         result["rating_levels"] = response.json().get("rating_levels")
 
     return jsonify(result)
-
 
 @bp.route("/items/<item_id>/questions", methods=["GET"])
 def api_items_questions(item_id):
