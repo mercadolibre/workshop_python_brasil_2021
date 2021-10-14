@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "workshop_python_brasil_2021"
+name = "meliarena"
 version = "0.1.0"
 description = "Meli Arena - Python Brasil 2021 - Workshop"
 authors = ["Your Name <you@example.com>"]
