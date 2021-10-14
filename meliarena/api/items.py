@@ -1,6 +1,7 @@
 import requests
 from flask import jsonify, request, Blueprint, abort, Response
 from meliarena.api.utils import is_comparable, filter_comparable_attributes
+from meliarena.models import Item
 
 
 BASE_API_URL = "https://api.mercadolibre.com"
@@ -36,3 +37,22 @@ def items_compare():
         abort(Response("Non comparable items!", status=400, mimetype='application/json'))
 
     return jsonify(items)
+
+@bp.route("/items/", methods=["POST"])
+def items():
+    data = request.json
+
+    if data.get("id", None) is None:
+        abort(Response("Item id is required!", status=400, mimetype='application/json'))
+
+    item = Item.query.filter_by(id=data.get("id")).first()
+
+    if item is None:
+        item = Item()
+        item.id = data.get("id")
+        item.title = data.get("title")
+
+    item.is_favourite = data.get("is_favourite").lower() == "true"
+    item.save()
+
+    return jsonify(item.to_dict())
