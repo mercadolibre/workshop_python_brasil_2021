@@ -24,14 +24,14 @@ Run
 
 ::
 
-    $ export FLASK_APP=flaskr
+    $ export FLASK_APP=meliarena
     $ export FLASK_ENV=development
     $ poetry run flask db reset
     $ poetry run flask run --reload
 
 Or on Windows cmd::
 
-    > set FLASK_APP=flaskr
+    > set FLASK_APP=meliarena
     > set FLASK_ENV=development
     > poetry run flask db reset
     > poetry run flask run --reload
