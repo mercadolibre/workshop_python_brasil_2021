@@ -26,15 +26,15 @@ Run
 
     $ export FLASK_APP=flaskr
     $ export FLASK_ENV=development
-    $ flask init-db
-    $ flask run
+    $ poetry run flask db reset
+    $ poetry run flask run --reload
 
 Or on Windows cmd::
 
     > set FLASK_APP=flaskr
     > set FLASK_ENV=development
-    > flask init-db
-    > flask run
+    > poetry run flask db reset
+    > poetry run flask run --reload
 
 Open http://127.0.0.1:5000 in a browser.
 
