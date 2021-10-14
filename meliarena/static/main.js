@@ -1,8 +1,9 @@
 const API_URL = 'http://127.0.0.1:5000/api/'
-const ITEMS_PREFIX = 'meli-items'
+const ITEMS_PREFIX = 'items'
 const COMPARE_ENDPOINT = `${ITEMS_PREFIX}/compare`
 const SEARCH_ENDPOINT = `${ITEMS_PREFIX}/search`
 const REVIEWS_ENDPOINT = `/reviews`
+const QUESTIONS_ENDPOINT = `/questions`
 
 // Search handler
 interface.elements.search.searchForm.addEventListener('submit', (ev) => {
@@ -62,13 +63,19 @@ const cardClickCallback = function(ev) {
     const productId = card.getAttribute('data-product-id')
     interface.toggleOnLoader()
 
-    fetch(`${API_URL + ITEMS_PREFIX}/${productId}/${REVIEWS_ENDPOINT}`)
-        .then(data => data.json())
-        .then(({reviews, rating_levels, rating_average}) => {
-            interface.buildModalContent({baseElement: interface.elements.modal, reviews, rating_levels, rating_average})
+    Promise.all([fetch(`${API_URL + ITEMS_PREFIX}/${productId}/${REVIEWS_ENDPOINT}`), fetch(`${API_URL + ITEMS_PREFIX}/${productId}/${QUESTIONS_ENDPOINT}`)])
+        .then(([reviewsStream, questionsStream])  => Promise.all([reviewsStream.json(), questionsStream.json()]))
+        .then(([{reviews, rating_levels, rating_average}, questions]) => {
+            if(!reviews.length && !questions.length ) {
+                alert("Esse produto ainda não possui avaliações ou perguntas")
+                return
+            }
+
+            interface.buildModalContent({baseElement: interface.elements.modal, reviews, rating_levels, questions, rating_average})
             window.scrollTo(0, 0);
-            interface.toggleOffLoader()
         })
+        .finally(() => interface.toggleOffLoader())
+
 
     interface.elements.modal.classList.add('show')
 }
