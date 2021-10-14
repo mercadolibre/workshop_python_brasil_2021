@@ -353,6 +353,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _stars__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./stars */ "./src/javascript/interface/builders/stars.js");
 /* harmony import */ var _domElements__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../domElements */ "./src/javascript/interface/domElements.js");
 /* harmony import */ var _builders_rating_levels__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../builders/rating-levels */ "./src/javascript/interface/builders/rating-levels.js");
+/* harmony import */ var _question__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./question */ "./src/javascript/interface/builders/question.js");
+
 
 
 
@@ -369,46 +371,111 @@ const buildModalContent = ({
   content.classList.add('content'); // Add button
 
   content.innerHTML = '<button id="close-modal"><svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M17.0716 6.465L12.5259 11.0107L17.3746 15.8594L15.8594 17.3747L11.0107 12.5259L6.46498 17.0716L4.84873 15.4554L9.39442 10.9097L4.54569 6.06094L6.06091 4.54571L10.9096 9.39445L15.4553 4.84876L17.0716 6.465Z" fill="#FD6666"/></svg></button>';
+
+  if (reviews.length) {
+    content.innerHTML += '<h3>Opiniões sobre o produto</h3>';
+    const ratingBox = document.createElement('div');
+    ratingBox.classList.add('rating-box');
+    const starsEvaluation = document.createElement('div');
+    starsEvaluation.classList.add('stars-evaluation');
+    const averege = document.createElement('div');
+    averege.classList.add('average');
+    const averegeSpan = document.createElement('span');
+    averegeSpan.innerText = rating_average;
+    const evaluation = document.createElement('div');
+    evaluation.classList.add('evaluation');
+    evaluation.appendChild((0,_stars__WEBPACK_IMPORTED_MODULE_1__["default"])(rating_average, 22));
+    averege.appendChild(averegeSpan);
+    averege.appendChild(evaluation);
+    starsEvaluation.appendChild(averege);
+    const ratingLevels = document.createElement('div');
+    ratingLevels.classList.add('rating-levels');
+    ratingLevels.appendChild((0,_builders_rating_levels__WEBPACK_IMPORTED_MODULE_3__["default"])(rating_levels));
+    starsEvaluation.appendChild(ratingLevels);
+    ratingBox.appendChild(starsEvaluation);
+    const feedbacks = document.createElement('div');
+    feedbacks.classList.add('feedbacks');
+    reviews.forEach(review => {
+      const reviewEl = (0,_feedback__WEBPACK_IMPORTED_MODULE_0__["default"])({
+        title: review.title,
+        evaluation: review.content,
+        stars: review.rate
+      });
+      feedbacks.appendChild(reviewEl);
+    });
+    ratingBox.appendChild(feedbacks);
+    content.appendChild(ratingBox);
+  }
+
+  if (questions.length) {
+    content.innerHTML += '<h3>Últimas perguntas feitas</h3>';
+    const questionsEl = document.createElement('div');
+    questionsEl.classList.add('questions');
+    content.appendChild(questionsEl);
+    questions.forEach(question => {
+      const questionEl = (0,_question__WEBPACK_IMPORTED_MODULE_4__["default"])(question);
+      questionsEl.appendChild(questionEl);
+    });
+  }
+
+  baseElement.appendChild(content);
   content.querySelector('button#close-modal').addEventListener('click', () => {
     _domElements__WEBPACK_IMPORTED_MODULE_2__["default"].modal.classList.remove('show');
     _domElements__WEBPACK_IMPORTED_MODULE_2__["default"].modal.querySelector('.content').remove();
   });
-  const ratingBox = document.createElement('div');
-  ratingBox.classList.add('rating-box');
-  const starsEvaluation = document.createElement('div');
-  starsEvaluation.classList.add('stars-evaluation');
-  const averege = document.createElement('div');
-  averege.classList.add('average');
-  const averegeSpan = document.createElement('span');
-  averegeSpan.innerText = rating_average;
-  const evaluation = document.createElement('div');
-  evaluation.classList.add('evaluation');
-  evaluation.appendChild((0,_stars__WEBPACK_IMPORTED_MODULE_1__["default"])(rating_average, 22));
-  averege.appendChild(averegeSpan);
-  averege.appendChild(evaluation);
-  starsEvaluation.appendChild(averege);
-  const ratingLevels = document.createElement('div');
-  ratingLevels.classList.add('rating-levels');
-  ratingLevels.appendChild((0,_builders_rating_levels__WEBPACK_IMPORTED_MODULE_3__["default"])(rating_levels));
-  starsEvaluation.appendChild(ratingLevels);
-  ratingBox.appendChild(starsEvaluation);
-  const feedbacks = document.createElement('div');
-  feedbacks.classList.add('feedbacks');
-  reviews.forEach(review => {
-    const reviewEl = (0,_feedback__WEBPACK_IMPORTED_MODULE_0__["default"])({
-      title: review.title,
-      evaluation: review.content,
-      stars: review.rate
-    });
-    feedbacks.appendChild(reviewEl);
-  });
-  ratingBox.appendChild(feedbacks);
-  content.appendChild(ratingBox);
-  baseElement.appendChild(content);
   return baseElement;
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (buildModalContent);
+
+/***/ }),
+
+/***/ "./src/javascript/interface/builders/question.js":
+/*!*******************************************************!*\
+  !*** ./src/javascript/interface/builders/question.js ***!
+  \*******************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+const buildQuestion = ({
+  question,
+  answer,
+  date
+}) => {
+  // <div class="question-wrapper">
+  //     <div class="question">
+  //         Tem exatamente esse modelo cinco cordas?
+  //     </div>
+  //     <div class="answer">
+  //         <span class="content">Olá, infelizmente não temos esse modelo disponível</span>
+  //         <span class="date">15/10/2021</span>
+  //     </div>
+  // </div>
+  const questionWrapper = document.createElement('div');
+  questionWrapper.classList.add('question-wrapper');
+  const questionEl = document.createElement('div');
+  questionEl.classList.add('question');
+  questionEl.innerText = question;
+  const answerEl = document.createElement('div');
+  answerEl.classList.add('answer');
+  const content = document.createElement('span');
+  content.classList.add('content');
+  content.innerText = answer; // const dateEl = document.createElement('div')
+  // dateEl.classList.add('date')
+  // dateEl.innerText = date
+
+  content.innerText = answer;
+  answerEl.appendChild(content); // answerEl.appendChild(dateEl)
+
+  questionWrapper.appendChild(questionEl);
+  questionWrapper.appendChild(answerEl);
+  return questionWrapper;
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (buildQuestion);
 
 /***/ }),
 
