@@ -111,7 +111,6 @@ const starItemAction = function(ev) {
     }
 }
 
-
 // Star item
 document.querySelectorAll('.comparation button#evaluate-star').forEach(button => {
     starItemAction.bind(button)
