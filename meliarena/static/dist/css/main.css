@@ -37,11 +37,142 @@
 .product-card--info .price {
   font-size: 1.125rem;
   font-weight: 700;
-  margin-bottom: 8px;
+  margin-bottom: 5px;
 }
 .product-card--info .name {
   font-size: 0.875rem;
   line-height: 9px;
+  color: #212529;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.informative-modal {
+  width: 100vw;
+  background-color: #f2f2f2b6;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 70px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 999;
+}
+.informative-modal:not(.show) {
+  display: none;
+}
+.informative-modal.show:before {
+  content: "";
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  background: #fff1599e;
+  width: 100vw;
+  height: 100vh;
+}
+.informative-modal button#close-modal {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+.informative-modal div.content {
+  width: 990px;
+  max-width: 990px;
+  background-color: white;
+  border-radius: 20px;
+  padding: 20px 30px;
+  position: relative;
+}
+.informative-modal div.content h3 {
+  font-weight: 300;
+}
+.informative-modal div.content .rating-box {
+  margin-bottom: 40px;
+}
+.informative-modal div.content .rating-box .stars-evaluation {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  margin: 40px 0 20px;
+  padding-bottom: 40px;
+  border-bottom: 1px solid #C0C0C0;
+}
+.informative-modal div.content .rating-box .stars-evaluation .average {
+  font-size: 100px;
+  font-weight: bold;
+  line-height: 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-right: 30px;
+  margin-top: 10px;
+}
+.informative-modal div.content .rating-box .stars-evaluation .rating-levels {
+  min-width: 300px;
+}
+.informative-modal div.content .rating-box .stars-evaluation .rating-levels .level {
+  display: flex;
+}
+.informative-modal div.content .rating-box .stars-evaluation .rating-levels .level:last-child .progress {
+  margin-left: 12px;
+}
+.informative-modal div.content .rating-box .stars-evaluation .rating-levels .level span:first-child {
+  font-weight: 600;
+}
+.informative-modal div.content .rating-box .stars-evaluation .rating-levels .level .progress {
+  width: 200px;
+  height: 8px;
+  background: #E4E4E4;
+  margin: 10px 5px;
+}
+.informative-modal div.content .rating-box .stars-evaluation .rating-levels .level .progress .filling {
+  width: 64px;
+  background-color: var(--meliBlue);
+  border-radius: 8px;
+}
+.informative-modal div.content .rating-box .feedbacks .feedback {
+  margin-bottom: 20px;
+}
+.informative-modal div.content .rating-box .feedbacks .feedback span.title {
+  font-weight: 700;
+  font-size: 16px;
+}
+.informative-modal div.content .rating-box .feedbacks .feedback .star-wrapper {
+  margin-bottom: 5px;
+}
+.informative-modal div.content .rating-box .feedbacks .feedback .evaluation {
+  font-size: 14px;
+}
+.informative-modal div.content .questions {
+  margin-top: 20px;
+}
+.informative-modal div.content .questions .question-wrapper .question {
+  font-size: 16px;
+}
+.informative-modal div.content .questions .question-wrapper .answer {
+  opacity: 0.8;
+  position: relative;
+  padding-left: 30px;
+  padding-bottom: 10px;
+}
+.informative-modal div.content .questions .question-wrapper .answer:before {
+  content: "";
+  width: 15px;
+  height: 15px;
+  display: inline-block;
+  border-left: 1px solid;
+  border-bottom: 1px solid;
+  margin-top: -2px;
+  display: block;
+  position: absolute;
+  left: 10px;
+  top: 1px;
+}
+.informative-modal div.content .questions .question-wrapper .answer .date {
+  font-size: 10px;
 }
 
 .loader.hide {
@@ -343,6 +474,7 @@ body {
   font-family: "Lato", sans-serif;
   --meliYellow: #FFF159;
   --spinnerBg: white;
+  --meliBlue: #3483FA;
 }
 body button {
   background: none;
@@ -468,7 +600,6 @@ body #content {
   overflow: hidden;
   margin-bottom: 80px;
   --columnGap: 30px;
-  --meliBlue: #3483FA;
 }
 body #content .comparation--show-case {
   display: grid;
@@ -499,7 +630,6 @@ body #content .comparation--show-case .products {
 }
 body #content .comparation--show-case .products--slot-b, body #content .comparation--show-case .products--slot-a {
   display: flex;
-  justify-content: center;
   flex-direction: column;
   align-items: center;
 }
@@ -520,6 +650,9 @@ body #content .comparation--show-case .products--slot-b:not(.is-skeleton) .skele
 body #content .comparation--show-case .products--slot-b .product-card, body #content .comparation--show-case .products--slot-b .skeleton, body #content .comparation--show-case .products--slot-a .product-card, body #content .comparation--show-case .products--slot-a .skeleton {
   margin-bottom: 30px;
 }
+body #content .comparation--show-case .products--slot-b .product-card--thumbnail, body #content .comparation--show-case .products--slot-a .product-card--thumbnail {
+  cursor: pointer;
+}
 body #content .comparation--show-case .products--slot-b button#evaluate-star, body #content .comparation--show-case .products--slot-a button#evaluate-star {
   transition: transform 0.2s ease-in-out;
 }
@@ -535,6 +668,10 @@ body #content .comparation--specs .spec {
   padding: 15px 40px;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   column-gap: calc(var(--columnGap) + 15px);
+}
+body #content .comparation--specs .spec span {
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 body #content .comparation--specs .spec .key {
   font-weight: bold;
