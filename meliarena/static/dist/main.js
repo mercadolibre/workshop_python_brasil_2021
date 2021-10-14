@@ -941,6 +941,30 @@ const clearCheckBoxes = () => {
 
 /***/ }),
 
+/***/ "./src/javascript/interface/helpers/getProductIdFromStarButton.js":
+/*!************************************************************************!*\
+  !*** ./src/javascript/interface/helpers/getProductIdFromStarButton.js ***!
+  \************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+const getProductIdFromStarButton = button => {
+  const productCard = button.closest('div').querySelector('.product-card');
+
+  if (!productCard) {
+    return false;
+  }
+
+  return productCard.getAttribute('data-product-id');
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (getProductIdFromStarButton);
+
+/***/ }),
+
 /***/ "./src/javascript/interface/helpers/getProductsIdsInSlot.js":
 /*!******************************************************************!*\
   !*** ./src/javascript/interface/helpers/getProductsIdsInSlot.js ***!
@@ -8529,7 +8553,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "updateSearchResults": () => (/* reexport safe */ _interface_actions_updateSearchResults__WEBPACK_IMPORTED_MODULE_7__["default"]),
 /* harmony export */   "getProductsIdsInSlot": () => (/* reexport safe */ _interface_helpers_getProductsIdsInSlot__WEBPACK_IMPORTED_MODULE_8__["default"]),
 /* harmony export */   "constants": () => (/* reexport safe */ _constants__WEBPACK_IMPORTED_MODULE_1__["default"]),
-/* harmony export */   "buildModalContent": () => (/* reexport safe */ _interface_builders_modal__WEBPACK_IMPORTED_MODULE_10__["default"])
+/* harmony export */   "buildModalContent": () => (/* reexport safe */ _interface_builders_modal__WEBPACK_IMPORTED_MODULE_10__["default"]),
+/* harmony export */   "getProductIdFromStarButton": () => (/* reexport safe */ _interface_helpers_getProductIdFromStarButton__WEBPACK_IMPORTED_MODULE_11__["default"])
 /* harmony export */ });
 /* harmony import */ var _interface_domElements__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./interface/domElements */ "./src/javascript/interface/domElements.js");
 /* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./constants */ "./src/javascript/constants/index.js");
@@ -8542,7 +8567,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _interface_helpers_getProductsIdsInSlot__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./interface/helpers/getProductsIdsInSlot */ "./src/javascript/interface/helpers/getProductsIdsInSlot.js");
 /* harmony import */ var _interface_actions_updateCompareTable__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./interface/actions/updateCompareTable */ "./src/javascript/interface/actions/updateCompareTable.js");
 /* harmony import */ var _interface_builders_modal__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./interface/builders/modal */ "./src/javascript/interface/builders/modal.js");
-/* harmony import */ var _interface_helpers_toggleLoader__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./interface/helpers/toggleLoader */ "./src/javascript/interface/helpers/toggleLoader.js");
+/* harmony import */ var _interface_helpers_getProductIdFromStarButton__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./interface/helpers/getProductIdFromStarButton */ "./src/javascript/interface/helpers/getProductIdFromStarButton.js");
+/* harmony import */ var _interface_helpers_toggleLoader__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./interface/helpers/toggleLoader */ "./src/javascript/interface/helpers/toggleLoader.js");
 
  // Temporary use
 
@@ -8558,7 +8584,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-const [toggleOnLoader, toggleOffLoader] = _interface_helpers_toggleLoader__WEBPACK_IMPORTED_MODULE_11__["default"];
+
+const [toggleOnLoader, toggleOffLoader] = _interface_helpers_toggleLoader__WEBPACK_IMPORTED_MODULE_12__["default"];
 window.addEventListener('DOMContentLoaded', function () {
   (0,_interface_handlers_clearSearchResults__WEBPACK_IMPORTED_MODULE_5__["default"])();
   (0,_interface_handlers_addItensToSlot__WEBPACK_IMPORTED_MODULE_6__["default"])();
