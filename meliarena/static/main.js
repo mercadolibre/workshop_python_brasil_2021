@@ -63,7 +63,7 @@ const cardClickCallback = function(ev) {
     const productId = card.getAttribute('data-product-id')
     interface.toggleOnLoader()
 
-    Promise.all([fetch(`${API_URL + ITEMS_PREFIX}/${productId}/${REVIEWS_ENDPOINT}`)])
+    Promise.all([fetch(`${API_URL + ITEMS_PREFIX}/${productId}${REVIEWS_ENDPOINT}`)])
         .then(([reviewsStream])  => Promise.all([reviewsStream.json()]))
         .then(([{reviews, rating_levels, rating_average}]) => {
             if(!reviews.length) {
@@ -87,4 +87,31 @@ document.querySelector('.comparation').addEventListener('DOMSubtreeModified', ()
         cardClickCallback.bind(card)
         card.addEventListener('click', cardClickCallback)
     })
+})
+
+// Star item callback
+const starItemAction = function(ev) {
+    const button = this
+    const productId = interface.getProductIdFromStarButton(button)
+
+    if(productId) {
+        fetch(`${API_URL + ITEMS_PREFIX}/`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                id: productId,
+                is_favourite: true,
+            }) 
+          });
+    } else {
+        alert("Selecione um produto primeiro, depois marque-o como favorito :)")
+    }
+}
+
+// Star item
+document.querySelectorAll('.comparation button#evaluate-star').forEach(button => {
+    starItemAction.bind(button)
+    button.addEventListener('click', starItemAction)
 })
