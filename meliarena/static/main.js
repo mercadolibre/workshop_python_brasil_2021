@@ -87,3 +87,33 @@ document.querySelector('.comparation').addEventListener('DOMSubtreeModified', ()
         card.addEventListener('click', cardClickCallback)
     })
 })
+
+
+
+// Star item callback
+const starItemAction = function(ev) {
+    const button = this
+    const productId = interface.getProductIdFromStarButton(button)
+
+    if(productId) {
+        fetch(`${API_URL + ITEMS_PREFIX}/`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                id: productId,
+                is_favourite: true,
+            }) 
+          });
+    } else {
+        alert("Selecione um produto primeiro, depois marque-o como favorito :)")
+    }
+}
+
+
+// Star item
+document.querySelectorAll('.comparation button#evaluate-star').forEach(button => {
+    starItemAction.bind(button)
+    button.addEventListener('click', starItemAction)
+})
