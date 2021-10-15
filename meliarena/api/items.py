@@ -29,8 +29,6 @@ def items_compare():
 
     items = [result.get("body") for result in results if result.get("code") == 200]
 
-    print(items)
-
     if is_comparable(items):
         items = filter_comparable_attributes(items)
     else:
@@ -45,6 +43,8 @@ def items():
         abort(Response("Item id is required!", status=400, mimetype='application/json'))
 
     item = Item.query.filter_by(id=data.get("id")).first()
+
+    breakpoint()
 
     if item is None:
         id = data.get("id")

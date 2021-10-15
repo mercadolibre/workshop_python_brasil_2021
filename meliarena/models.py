@@ -14,7 +14,7 @@ class Item(db.Model):
         self.is_favourite = is_favourite
 
     def __repr__(self):
-        return f"<Item: {self.title!r}>"
+        return f"<{self.__class__.__name__}: {self.id!r}>"
 
     def save(self, commit=True):
         db.session.add(self)
