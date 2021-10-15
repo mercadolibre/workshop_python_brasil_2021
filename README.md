@@ -37,12 +37,3 @@ Or on Windows cmd::
     > poetry run flask run --reload
 
 Open http://127.0.0.1:5000 in a browser.
-
-
-Test
-----
-
-::
-
-    $ poetry install
-    $ poetry run pytest
