@@ -30,8 +30,6 @@ def items_compare():
 
     items = [result.get("body") for result in results if result.get("code") == 200]
 
-    print(items)
-
     if is_comparable(items):
         items = filter_comparable_attributes(items)
     else:
