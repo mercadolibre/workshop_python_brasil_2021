@@ -1,5 +1,6 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+from meliarena.views import Home
 
 
 db = SQLAlchemy()
@@ -13,8 +14,6 @@ def create_app(config=None):
     )
 
     db.init_app(app)
-
-    from meliarena.views import Home
 
     app.add_url_rule("/", view_func=Home.as_view("home"))
 
