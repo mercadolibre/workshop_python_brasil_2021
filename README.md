@@ -16,7 +16,7 @@ Install
 
 Install MeliArena
 
-    $ poetry install --no-dev
+    $ poetry install
 
 
 Run
@@ -26,7 +26,7 @@ Run
 
     $ export FLASK_APP=meliarena
     $ export FLASK_ENV=development
-    $ poetry run flask db reset
+    $ poetry run flask db reset // it's not necessary execute db init
     $ poetry run flask run --reload
 
 Or on Windows cmd::
