@@ -44,8 +44,6 @@ def items():
 
     item = Item.query.filter_by(id=data.get("id")).first()
 
-    breakpoint()
-
     if item is None:
         id = data.get("id")
         title = data.get("title")
