@@ -16,4 +16,4 @@ Install
 
 Install MeliArena
 
-    $ poetry install --no-dev
+    $ poetry install
