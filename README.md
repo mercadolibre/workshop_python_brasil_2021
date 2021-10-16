@@ -16,7 +16,7 @@ Install
 
 Install MeliArena
 
-    $ poetry install --no-dev
+    $ poetry install
 
 
 Run
@@ -26,15 +26,13 @@ Run
 
     $ export FLASK_APP=meliarena
     $ export FLASK_ENV=development
-    $ poetry run flask db reset // it's not necessary to execute db init
-    $ poetry run flask run --reload
+    $ poetry run flask run
 
 Or on Windows cmd::
 
     > set FLASK_APP=meliarena
     > set FLASK_ENV=development
-    > poetry run flask db reset // it's not necessary to execute db init
-    > poetry run flask run --reload
+    > poetry run flask run
 
 Open http://127.0.0.1:5000 in a browser.
 
